@@ -10,7 +10,7 @@ If no client ID is configured, the generator remains fully usable through copy a
 
 1. Create a Google Cloud project and enable the Gmail API.
 2. Configure the OAuth consent screen. Add your account as a test user while the app is in testing.
-3. Create an OAuth client of type Web application. Add `http://localhost:5173` and the deployed site's origin to Authorized JavaScript origins (no path).
+3. Create an OAuth client of type Web application. Add `http://localhost`, `http://localhost:5173`, and `https://zimilinganii.github.io` to Authorized JavaScript origins (no path). If hosting changes, add the new site's origin too. Under Data Access, add `https://www.googleapis.com/auth/gmail.settings.basic`.
 4. Put the client ID in `.env.local` as `VITE_GOOGLE_CLIENT_ID=...apps.googleusercontent.com`, then restart Vite. This client ID is public configuration, not a client secret. Never put a client secret in a Vite environment variable.
 5. For deployment, set the same GitHub Actions repository variable and rebuild.
 6. Review your design, connect Google, grant Gmail settings permission, then select Install in Gmail. This explicitly replaces the primary Gmail web signature; it does not configure all mobile clients or secondary aliases.

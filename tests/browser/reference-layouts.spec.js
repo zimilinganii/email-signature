@@ -1,6 +1,32 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
 
+test('exported contacts retain alignment without application styles',async({page},testInfo)=>{
+  await page.goto('/');
+  const markup=await page.evaluate(async()=>{
+    const {generateSignatureHtml}=await import('/src/utils/generateSignatureHtml.js');
+    const {defaultProfile}=await import('/src/data/defaultProfile.js');
+    return generateSignatureHtml({...defaultProfile,fullName:'Alex Riley',role:'Data engineer / data scientist',phone:'+27 67 239 8773',email:'alexriley123@gmail.com',website:'https://ab123cd4.personal-website-c21.pages.dev/',photoUrl:'https://example.com/photo.png'});
+  });
+  async function measure(){return page.locator('[data-personal-contacts]').evaluate(grid=>{
+    const phone=grid.querySelector('a[href^="tel:"]').getBoundingClientRect();
+    const email=grid.querySelector('a[href^="mailto:"]').getBoundingClientRect();
+    const site=grid.querySelector('a[href^="https:"]').getBoundingClientRect();
+    return {phone:{x:phone.x,y:phone.y,height:phone.height},email:{x:email.x,y:email.y,height:email.height},site:{x:site.x,y:site.y},width:document.querySelector('[data-template]').getBoundingClientRect().width};
+  });}
+  await page.setContent(`<style>*{box-sizing:border-box}body{margin:0}</style>${markup}`);
+  const preview=await measure();
+  await page.setContent(`<body style="margin:0">${markup}</body>`);
+  const exported=await measure();
+  expect(exported).toEqual(preview);
+  expect(exported.phone.height).toBeLessThan(20);
+  expect(exported.email.height).toBeLessThan(20);
+  expect(exported.phone.y).toBe(exported.email.y);
+  expect(exported.phone.x).toBe(exported.site.x);
+  expect(exported.width).toBe(660);
+  await page.locator('[data-template]').screenshot({path:testInfo.outputPath('standalone-export.png')});
+});
+
 test('personal reference geometry keeps contact columns aligned', async ({page},testInfo)=>{
   await page.goto('/');
   const photo = await sharp({create:{width:400,height:400,channels:3,background:'#dce0fc'}}).png().toBuffer();

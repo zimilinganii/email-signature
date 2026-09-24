@@ -6,4 +6,6 @@
 .editor-tabs{gap:8px;flex-wrap:wrap}.editor-tabs button{font-size:12px}
 .mail-body{padding-left:12px;padding-right:12px}.signature-scroll{padding:6px 0 10px}
 .workspace > *{min-width:0}
+.google-setup{margin-top:12px;font-size:12px;line-height:1.6;color:#475b4a;overflow-wrap:anywhere}
+.google-setup summary{cursor:pointer;font-weight:bold}.google-setup ol{padding-left:20px}.google-setup li{margin:10px 0}.google-setup code{font-size:11px;overflow-wrap:anywhere}.google-setup a{color:#265f47}
 @media(max-width:950px){.workspace{grid-template-columns:minmax(0,1fr)}}
