@@ -1,15 +1,17 @@
 import { isValidUrl } from './validateProfile';
+import { iconUrl, socialIconName } from './signatureIcons';
 export const escapeHtml = (value = '') => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 const color = (v, fallback) => /^#[a-f0-9]{6}$/i.test(v) ? v : fallback;
 const size = (v, fallback) => Math.max(40, Math.min(180, Number(v) || fallback));
 export const safeImage = (url = '') => /^data:image\/(png|jpeg|webp);base64,[a-z0-9+/=]+$/i.test(url) || (url.startsWith('https://') && isValidUrl(url));
-export function generateSignatureHtml(p) {
+export function generateSignatureHtml(p, { preview = false } = {}) {
   const accent = color(p.accent, '#256b58');
+  const imageIcon = name => `<img src="${escapeHtml(preview ? `${import.meta.env.BASE_URL}icons/${name}.png` : iconUrl(name))}" alt="" width="16" height="16" style="display:inline-block;vertical-align:middle;border:0;" />`;
   const anchor = (href, label) => `<a href="${escapeHtml(href)}" style="color:${accent};text-decoration:none;">${escapeHtml(label)}</a>`;
   const row = (icon, value) => value ? `<tr><td width="22" style="color:${accent};vertical-align:top;">${icon}</td><td style="padding-bottom:5px;word-break:break-word;">${value}</td></tr>` : '';
-  const contacts = row('&#9993;', p.email ? anchor(`mailto:${p.email}`, p.email) : '') + row('&#9742;', p.phone ? anchor(`tel:${p.phone.replace(/[^+\d]/g, '')}`, p.phone) : '') + row('&#8599;', p.website && isValidUrl(p.website) ? anchor(p.website, p.website.replace(/^https?:\/\//, '')) : '') + row('&#8982;', escapeHtml(p.location));
+  const contacts = row(imageIcon('email'), p.email ? anchor(`mailto:${p.email}`, p.email) : '') + row(imageIcon('phone'), p.phone ? anchor(`tel:${p.phone.replace(/[^+\d]/g, '')}`, p.phone) : '') + row(imageIcon('website'), p.website && isValidUrl(p.website) ? anchor(p.website, p.website.replace(/^https?:\/\//, '')) : '') + row('&#8982;', escapeHtml(p.location));
   const icons = { linkedin: 'in', github: 'GH', instagram: '&#9678;', whatsapp: '&#9742;', 'x / twitter': 'X', portfolio: '&#8599;' };
-  const social = p.links.filter(l => l.enabled && l.url && isValidUrl(l.url)).map(l => `<span style="color:${accent};font-weight:bold;">${icons[l.label.toLowerCase()] || '&#8599;'}</span> ${anchor(l.url, l.label)}`).join(' &nbsp; ');
+  const social = p.links.filter(l => l.enabled && l.url && isValidUrl(l.url)).map(l => `${socialIconName(l.label) ? imageIcon(socialIconName(l.label)) : `<span style="color:${accent};font-weight:bold;">${icons[l.label.toLowerCase()] || '&#8599;'}</span>`} ${anchor(l.url, l.label)}`).join(' &nbsp; ');
   const photo = p.photoUrl && safeImage(p.photoUrl) ? `<img src="${escapeHtml(p.photoUrl)}" alt="${escapeHtml(p.fullName)}" width="${size(p.photoSize,88)}" height="${size(p.photoSize,88)}" style="display:block;border-radius:${Math.max(0,Math.min(50,Number(p.photoRound)||0))}%;">` : '';
   const logo = p.mode === 'business' && p.logoUrl && safeImage(p.logoUrl) ? `<div style="padding-top:14px;"><img src="${escapeHtml(p.logoUrl)}" alt="${escapeHtml(p.company || 'Business logo')}" width="${size(p.logoSize,100)}" style="display:block;height:auto;"></div>` : '';
   const details = `<div style="font-size:22px;font-weight:bold;color:${accent};">${escapeHtml(p.fullName)}</div>${p.mode === 'business' ? `<div>${escapeHtml([p.role,p.company].filter(Boolean).join(' · '))}</div>` : ''}<table cellpadding="0" cellspacing="0" role="presentation" style="font-size:12px;color:inherit;padding-top:12px;">${contacts}</table>${social ? `<div style="padding-top:9px;font-size:12px;">${social}</div>` : ''}${p.tagline ? `<div style="padding-top:14px;font-size:12px;">${escapeHtml(p.tagline)}</div>` : ''}${logo}`;
