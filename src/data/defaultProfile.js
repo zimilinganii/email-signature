@@ -1,5 +1,5 @@
 export const defaultProfile = {
-  iconColor: 'default',
+  iconColor: 'default', contactStripColor: '',
   mode: 'personal', accent: '#a6a8d4', background: '#ffffff', textColor: '#242424',
   layout: 'side', photoSize: 132, photoRound: 50, logoSize: 80, logoUrl: '', tagline: '',
   fullName: 'Your Name',
