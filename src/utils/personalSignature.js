@@ -31,7 +31,7 @@ export function personalSignature(p, { preview, accent, background, text, escape
   const html = `<table ${table} width="660" data-template="personal-circle" style="width:660px;max-width:660px;font-family:Arial,Helvetica,sans-serif;line-height:1.4;background-color:${background};color:${text};border-collapse:separate;"><tr><td style="padding:24px 30px 24px 39px;"><table ${table} width="100%" style="width:100%;table-layout:fixed;">${p.layout==='stack'?stacked:horizontal}</table></td></tr></table>`;
   // Match native email table sizing even inside the editor's border-box reset.
   return html.replace(/<(table|td)\b([^>]*)>/g, (tag, name, attributes) => {
-    const common = 'box-sizing:content-box;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:19px;';
+    const common = 'box-sizing:content-box;';
     return attributes.includes('style="') ? '<'+name+attributes.replace('style="','style="'+common)+'>' : '<'+name+' style="'+common+'"'+attributes+'>';
   });
 }

@@ -7,6 +7,8 @@ async function gmailRequest(token, url, options = {}) {
 }
 
 export async function installGmailSignature(token, signatureHtml) {
+  if (/src\s*=\s*["'](?:data:|blob:)/i.test(signatureHtml)) throw new Error('Use public HTTPS image URLs before installing in Gmail.');
+  if (signatureHtml.length > 8000) throw new Error('Shorten the signature before installing in Gmail.');
   const aliases = await gmailRequest(token, API_ROOT);
   const primary = aliases.sendAs?.find((alias) => alias.isPrimary);
   if (!primary) throw new Error('No primary Gmail send-as address was found.');

@@ -1,6 +1,19 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
 
+test('Gmail copy prevents embedded uploads and offers an explicit image-free alternative',async({page})=>{
+ await page.goto('/');
+ await page.evaluate(()=>{window.copied=[];Object.defineProperty(navigator,'clipboard',{configurable:true,value:{write:async items=>{window.copied.push(await (await items[0].getType('text/html')).text());}}});});
+ await page.getByRole('button',{name:/Upload your photo/}).click();
+ await page.getByLabel('Upload your photo',{exact:true}).setInputFiles('public/icons/website.png');
+ await page.getByRole('button',{name:'Review & create →',exact:true}).click();
+ await page.getByRole('button',{name:'Copy signature',exact:true}).first().click();
+ expect(await page.evaluate(()=>window.copied.length)).toBe(0);
+ await page.getByRole('button',{name:'Copy for Gmail without uploads',exact:true}).click();
+ const html=await page.evaluate(()=>window.copied[0]);
+ expect(html).not.toContain('data:image');expect(html).toContain('mailto:you@example.com');expect(html.length).toBeLessThan(8000);
+});
+
 test('icon color selection and automatic contrast follow the signature background',async({page})=>{
  await page.goto('/');
  await page.getByRole('button',{name:'Style',exact:true}).click();
