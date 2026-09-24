@@ -1,6 +1,7 @@
 import { isValidUrl } from './validateProfile';
 import { iconUrl, socialIconName } from './signatureIcons';
 import { personalSignature } from './personalSignature';
+import { themedIconName } from '../data/iconPalette';
 export const escapeHtml = (value = '') => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 const color = (v, fallback) => /^#[a-f0-9]{6}$/i.test(v) ? v : fallback;
 const size = (v, fallback) => Math.max(40, Math.min(180, Number(v) || fallback));
@@ -13,7 +14,10 @@ export function generateSignatureHtml(p, { preview = false } = {}) {
   const text = color(p.textColor, '#243b35');
   if (!business) return personalSignature(p, { preview, accent, background, text, escapeHtml, safeImage });
   const table = 'cellpadding="0" cellspacing="0" border="0" role="presentation"';
-  const icon = name => `<img src="${escapeHtml(preview ? `${import.meta.env.BASE_URL}icons/${name}.png` : iconUrl(name))}" alt="" width="16" height="16" style="vertical-align:middle;border:0;" />`;
+  const icon = (name, surface = background) => {
+    const asset = themedIconName(name, p.iconColor, surface);
+    return `<img src="${escapeHtml(preview ? `${import.meta.env.BASE_URL}icons/${asset}.png` : iconUrl(asset))}" alt="" width="16" height="16" style="vertical-align:middle;border:0;" />`;
+  };
   const link = (href, label) => `<a href="${escapeHtml(href)}" style="color:${text};text-decoration:none;">${escapeHtml(label)}</a>`;
   const entries = [
     p.phone && ['phone', link(`tel:${p.phone.replace(/[^+\d]/g, '')}`, p.phone)],
@@ -24,7 +28,7 @@ export function generateSignatureHtml(p, { preview = false } = {}) {
   const contacts = `<table ${table} style="color:${text};">${business ? entries.map(e => `<tr>${cell(e)}</tr>`).join('') : entries.reduce((rows,e,i) => rows + (i%2===0?'<tr>':'') + cell(e) + (i%2===1 || i===entries.length-1?'</tr>':''),'')}</table>`;
   const rail = p.links.filter(l => l.enabled && l.url && isValidUrl(l.url)).map(l => {
     const name = socialIconName(l.label);
-    return `<tr><td style="padding:7px 6px;text-align:center;"><a href="${escapeHtml(l.url)}" title="${escapeHtml(l.label)}" style="font-size:10px;font-weight:bold;color:${text};text-decoration:none;">${name ? icon(name).replace('alt=""',`alt="${escapeHtml(l.label)}"`) : escapeHtml(l.label)}</a></td></tr>`;
+    return `<tr><td style="padding:7px 6px;text-align:center;"><a href="${escapeHtml(l.url)}" title="${escapeHtml(l.label)}" style="font-size:10px;font-weight:bold;color:${text};text-decoration:none;">${name ? icon(name, accent).replace('alt=""',`alt="${escapeHtml(l.label)}"`) : escapeHtml(l.label)}</a></td></tr>`;
   }).join('');
   const social = rail ? `<table ${table}>${rail}</table>` : '';
   const width = size(p.photoSize, business ? 120 : 100);

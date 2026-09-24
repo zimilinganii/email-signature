@@ -12,6 +12,8 @@ Review & create approves the current preview and reveals export actions. Editing
 
 ## Reference-inspired contact icons
 
+In Style → Icon color, choose Original, one of ten color presets, or Auto contrast. Auto contrast chooses white icons on dark surfaces and black icons on light surfaces; business social icons also consider the accent strip behind them. These colors use pre-rendered PNG assets, so the selected color is preserved in copied/downloaded HTML without relying on CSS filters. Deploy the entire `public/icons/colors/` directory together with the application. Existing signatures must be regenerated to adopt a new color.
+
 The personal reference layout is a 660px-wide email table with a fixed social column, thin separator lines, a 132px default portrait inside two concentric rings, a bold name and uppercase title pill. Phone and email share the first contact row; website aligns with phone underneath. Location remains omitted. Personal icons use a coordinated lavender palette; editable accent colors apply to the frame, separators and title pill. Extra-long details wrap within their columns. Narrow previews scroll horizontally to preserve the exported geometry. The optional tagline remains available but is blank by default to match the reference.
 
 Email and LinkedIn use blue tiles; GitHub uses a cat silhouette, phone uses a handset, and personal websites use a profile in a browser window. The code-drawn PNGs in `public/icons/` are 96px assets displayed at 16px. They are interpretations of the supplied references, not cropped copies. Labels remain visible if email clients block images.

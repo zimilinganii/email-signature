@@ -1,6 +1,7 @@
 // Code-drawn reference-inspired artwork. PNG output avoids SVG restrictions in email clients.
 import sharp from 'sharp';
 import { mkdir } from 'node:fs/promises';
+import { iconPalette } from '../src/data/iconPalette.js';
 const destination = new URL('../public/icons/', import.meta.url);
 await mkdir(destination, { recursive: true });
 const gradient = '<defs><linearGradient id="blue" x2="0" y2="1"><stop stop-color="#8ebae8"/><stop offset=".5" stop-color="#1663af"/><stop offset="1" stop-color="#174a97"/></linearGradient></defs>';
@@ -30,4 +31,14 @@ const personal = {
 for (const [name, body] of Object.entries(personal)) {
   await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 32 32">${body}</svg>`)).png().toFile(new URL(`personal-${name}.png`,destination).pathname.replace(/^\/([A-Za-z]:)/,'$1'));
 }
-console.log('Rendered five 96px PNG icons for 16px display.');
+for (const choice of iconPalette) {
+  const folder = new URL(`colors/${choice.id}/`, destination);
+  await mkdir(folder, { recursive:true });
+  const ink = choice.id === 'white' ? '#242424' : '#ffffff';
+  const variants = {...art, ...Object.fromEntries(Object.entries(personal).map(([name,body])=>[`personal-${name}`,body]))};
+  for (const [name, body] of Object.entries(variants)) {
+    const themed = body.replace(/#[a-f0-9]{6}|\bwhite\b/gi, value => value.toLowerCase()==='white' ? ink : choice.color);
+    await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 32 32">${themed}</svg>`)).png().toFile(new URL(`${name}.png`,folder).pathname.replace(/^\/([A-Za-z]:)/,'$1'));
+  }
+}
+console.log('Rendered original icons and ten email-compatible color palettes.');

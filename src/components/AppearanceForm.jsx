@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { IconColorControl } from './IconColorControl';
 
 function ImageEditor({ title, field, profile, onChange }) {
   const [error,setError] = useState('');
@@ -36,5 +37,5 @@ export function ImageFields({profile,onChange}) {
   return <><ImageEditor key={`${profile.mode}-photo`} title="Your photo" field="photoUrl" profile={profile} onChange={onChange}/>{profile.mode==='business'&&<ImageEditor title="Business logo" field="logoUrl" profile={profile} onChange={onChange}/>}<p className="hint">PNG, JPG or WebP, up to 5 MB. Uploads stay on your device. For Gmail delivery, use public HTTPS image URLs.</p></>;
 }
 export function AppearanceForm({profile,onChange}) {
-  return <><div className="color-grid">{[['accent','Accent'],['background','Background'],['textColor','Text']].map(([key,label])=><label key={key}><span>{label}</span><input type="color" value={profile[key]} onChange={e=>onChange(key,e.target.value)}/></label>)}</div>{profile.mode==='personal'&&<label><span>Signature layout</span><select value={profile.layout} onChange={e=>onChange('layout',e.target.value)}><option value="side">Circular photo · reference layout</option><option value="stack">Stacked</option></select></label>}<p className="hint">{profile.mode==='business'?'Business layout: logo and name, contact details, portrait, then social links on an accent strip.':'Personal layout: social links, framed circular portrait, then your name and contact details.'}</p></>;
+  return <><div className="color-grid">{[['accent','Accent'],['background','Background'],['textColor','Text']].map(([key,label])=><label key={key}><span>{label}</span><input type="color" value={profile[key]} onChange={e=>onChange(key,e.target.value)}/></label>)}</div><IconColorControl profile={profile} onChange={onChange}/>{profile.mode==='personal'&&<label><span>Signature layout</span><select value={profile.layout} onChange={e=>onChange('layout',e.target.value)}><option value="side">Circular photo · reference layout</option><option value="stack">Stacked</option></select></label>}<p className="hint">{profile.mode==='business'?'Business layout: logo and name, contact details, portrait, then social links on an accent strip.':'Personal layout: social links, framed circular portrait, then your name and contact details.'}</p></>;
 }

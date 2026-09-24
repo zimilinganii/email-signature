@@ -1,11 +1,15 @@
 import { isValidUrl } from './validateProfile';
 import { iconUrl } from './signatureIcons';
+import { themedIconName } from '../data/iconPalette';
 
 // All geometry is inline so copying the signature preserves the reference layout.
 export function personalSignature(p, { preview, accent, background, text, escapeHtml: esc, safeImage }) {
   const table = 'cellpadding="0" cellspacing="0" border="0" role="presentation"';
   const photoSize = Math.max(40, Math.min(180, Number(p.photoSize) || 132));
-  const image = (name, label = '', dimension = 18) => `<img src="${esc(preview ? `${import.meta.env.BASE_URL}icons/personal-${name}.png` : iconUrl(`personal-${name}`))}" alt="${esc(label)}" width="${dimension}" height="${dimension}" style="display:block;border:0;" />`;
+  const image = (name, label = '', dimension = 18) => {
+    const asset = themedIconName(`personal-${name}`, p.iconColor, background);
+    return `<img src="${esc(preview ? `${import.meta.env.BASE_URL}icons/${asset}.png` : iconUrl(asset))}" alt="${esc(label)}" width="${dimension}" height="${dimension}" style="display:block;border:0;" />`;
+  };
   const socialNames = { facebook:'facebook', twitter:'twitter', 'x / twitter':'twitter', x:'twitter', linkedin:'linkedin', github:'github', portfolio:'website', website:'website', 'personal website':'website' };
   const links = p.links.filter(l => l.enabled && l.url && isValidUrl(l.url));
   const rail = links.length ? `<table ${table} width="34" style="width:34px;">${links.map((l,i) => `<tr><td align="center" style="padding:0;text-align:center;"><a href="${esc(l.url)}" title="${esc(l.label)}" style="color:${accent};font-size:10px;font-weight:bold;text-decoration:none;">${socialNames[l.label.trim().toLowerCase()] ? image(socialNames[l.label.trim().toLowerCase()],l.label,socialNames[l.label.trim().toLowerCase()] === 'linkedin' ? 34 : 28) : esc(l.label)}</a></td></tr>${i<links.length-1?`<tr><td align="center" style="padding:8px 0;"><table ${table} width="1"><tr><td height="26" style="width:1px;height:26px;background-color:${accent};font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr>`:''}`).join('')}</table>` : '';

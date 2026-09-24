@@ -1,6 +1,22 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
 
+test('icon color selection and automatic contrast follow the signature background',async({page})=>{
+ await page.goto('/');
+ await page.getByRole('button',{name:'Style',exact:true}).click();
+ await page.getByRole('button',{name:'Blue icons',exact:true}).click();
+ const linkedin=page.locator('[data-template="personal-circle"] img[alt="LinkedIn"]');
+ await expect(linkedin).toHaveAttribute('src',/colors\/blue\/personal-linkedin\.png$/);
+ expect(await linkedin.evaluate(image=>image.complete&&image.naturalWidth>0)).toBe(true);
+ await page.getByRole('button',{name:'Auto contrast',exact:true}).click();
+ await page.getByLabel('Background',{exact:true}).fill('#111111');
+ await expect(linkedin).toHaveAttribute('src',/colors\/white\/personal-linkedin\.png$/);
+ await page.getByLabel('Background',{exact:true}).fill('#ffffff');
+ await expect(linkedin).toHaveAttribute('src',/colors\/black\/personal-linkedin\.png$/);
+ await page.getByRole('button',{name:'Original',exact:true}).click();
+ await expect(linkedin).toHaveAttribute('src',/^\.\/icons\/personal-linkedin\.png$/);
+});
+
 test('exported contacts retain alignment without application styles',async({page},testInfo)=>{
   await page.goto('/');
   const markup=await page.evaluate(async()=>{

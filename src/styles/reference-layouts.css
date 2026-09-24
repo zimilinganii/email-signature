@@ -6,6 +6,7 @@
 .editor-tabs{gap:8px;flex-wrap:wrap}.editor-tabs button{font-size:12px}
 .mail-body{padding-left:12px;padding-right:12px}.signature-scroll{padding:6px 0 10px}
 .workspace > *{min-width:0}
+.icon-colors{border:1px solid #dce3d7;border-radius:12px;margin:0 0 22px;padding:16px;min-width:0}.icon-colors legend{font-size:13px;font-weight:bold;padding:0 6px}.icon-color-options{display:flex;flex-wrap:wrap;gap:8px}.icon-color-options button{display:flex;align-items:center;gap:6px;border:2px solid transparent;background:#f0f2eb;color:#344b3b;padding:8px;font-size:12px}.icon-color-options button[aria-pressed=true]{border-color:#265f47;background:#e4eddf}.icon-color-options span{width:16px;height:16px;border-radius:50%;border:1px solid #8b9489;display:inline-block}.icon-colors .hint{margin-bottom:0}
 .google-setup{margin-top:12px;font-size:12px;line-height:1.6;color:#475b4a;overflow-wrap:anywhere}
 .google-setup summary{cursor:pointer;font-weight:bold}.google-setup ol{padding-left:20px}.google-setup li{margin:10px 0}.google-setup code{font-size:11px;overflow-wrap:anywhere}.google-setup a{color:#265f47}
 @media(max-width:950px){.workspace{grid-template-columns:minmax(0,1fr)}}
