@@ -1,17 +1,20 @@
-import { socialRail } from './socialRail';
+import { platformIcons } from './socialRail';
 import { isValidUrl } from './validateProfile';
 import { iconUrl } from './signatureIcons';
-import { themedIconName } from '../data/iconPalette';
+import { themedIconName, resolveIconColor } from '../data/iconPalette';
 
 export function businessSignature(p,{preview,accent,background,text,escapeHtml:esc,safeImage}) {
   const table='cellpadding="0" cellspacing="0" border="0" role="presentation"';
-  const rail=socialRail(p,{preview,accent,background,escapeHtml:esc});
-  const size=Math.max(40,Math.min(180,Number(p.logoSize)||100));
-  const logo=p.logoUrl&&safeImage(p.logoUrl)?`<img src="${esc(p.logoUrl)}" alt="${esc(p.company||'Business logo')}" width="${size}" style="display:block;width:${size}px;height:auto;border:0;" />`:preview?'<span style="font-size:12px;">Upload business logo</span>':'';
-  const entries=[p.phone&&['phone',p.phone,`tel:${p.phone.replace(/[^+\d]/g,'')}`],p.email&&['email',p.email,`mailto:${p.email}`],p.website&&isValidUrl(p.website)&&['website',p.website.replace(/^https?:\/\//,''),p.website]].filter(Boolean);
-  const contacts=entries.map(([name,label,url])=>{
-    const asset=themedIconName(`personal-${name}`,p.iconColor,accent);
-    return `<tr><td width="24" style="padding:4px 0;vertical-align:middle;"><img src="${esc(preview?`${import.meta.env.BASE_URL}icons/${asset}.png`:iconUrl(asset))}" alt="" width="17" height="17" style="display:block;border:0;" /></td><td style="padding:4px 0;font-size:13px;line-height:18px;word-break:break-word;"><a href="${esc(url)}" style="color:${text};text-decoration:none;">${esc(label)}</a></td></tr>`;
-  }).join('');
-  return `<table ${table} width="660" data-template="business-logo" style="width:660px;font-family:Arial,Helvetica,sans-serif;background-color:${background};color:${text};border-radius:16px;border-collapse:separate;"><tr>${rail?`<td width="36" style="padding:20px 16px;vertical-align:middle;">${rail}</td>`:''}<td width="${size}" style="padding:24px 22px;text-align:center;vertical-align:middle;">${logo}${p.company?`<div style="padding-top:8px;font-size:17px;font-weight:bold;">${esc(p.company)}</div>`:''}</td><td style="padding:22px 20px 0 0;vertical-align:middle;"><table ${table} width="100%"><tr><td style="border-left:2px solid ${accent};padding:8px 0 16px 22px;"><div style="font-size:27px;line-height:32px;font-weight:bold;">${esc(p.fullName)}</div>${p.role?`<div style="font-size:15px;line-height:21px;padding-top:3px;">${esc(p.role)}</div>`:''}${p.tagline?`<div style="font-size:11px;padding-top:8px;">${esc(p.tagline)}</div>`:''}</td></tr><tr><td style="padding:12px 16px;background-color:${accent};border-radius:28px 0 12px 0;"><table ${table} width="100%">${contacts}</table></td></tr></table></td></tr></table>`.replace(/style="/g,'style="box-sizing:content-box;');
+  const image=(name,dimension,surface,label='')=>{
+    const asset=themedIconName('personal-'+name,p.iconColor==='default'?'auto':p.iconColor,surface);
+    return `<img src="${esc(preview?`${import.meta.env.BASE_URL}icons/${asset}.png`:iconUrl(asset))}" alt="${esc(label)}" width="${dimension}" height="${dimension}" style="display:block;border:0;" />`;
+  };
+  const links=p.links.filter(l=>l.enabled&&isValidUrl(l.url)).slice(0,3);
+  const socials=links.map(l=>`<td style="padding:0 0 0 9px;"><a href="${esc(l.url)}" title="${esc(l.label)}">${image(platformIcons[l.label.trim().toLowerCase()]||'website',26,background,l.label)}</a></td>`).join('');
+  const size=Math.max(40,Math.min(140,Number(p.logoSize)||100));
+  const logo=p.logoUrl&&safeImage(p.logoUrl)?`<img src="${esc(p.logoUrl)}" alt="${esc(p.company||'Business logo')}" width="${size}" style="display:block;width:${size}px;height:auto;border:0;margin:0 auto;" />`:preview?'<span style="font-size:12px;">Upload business logo</span>':'';
+  const ink=resolveIconColor('auto',accent)==='white'?'#ffffff':'#242424';
+  const entries=[p.email&&['email',p.email,`mailto:${p.email}`],p.phone&&['phone',p.phone,`tel:${p.phone.replace(/[^+\d]/g,'')}`],p.website&&isValidUrl(p.website)&&['website',p.website.replace(/^https?:\/\//,''),p.website]].filter(Boolean);
+  const contacts=entries.map(([name,label,url],i)=>`<td style="padding:0 9px;vertical-align:middle;${i?'border-left:1px solid '+ink+';':''}"><table ${table}><tr><td width="21" style="vertical-align:middle;">${image(name,15,accent)}</td><td style="font-size:11px;line-height:15px;overflow-wrap:anywhere;word-break:break-word;"><a href="${esc(url)}" style="color:${ink};text-decoration:none;">${esc(label)}</a></td></tr></table></td>`).join('');
+  return `<table ${table} width="660" data-template="business-logo" style="width:660px;table-layout:fixed;font-family:Arial,Helvetica,sans-serif;background-color:${background};color:${text};border-radius:16px;border-collapse:separate;"><tr><td width="180" rowspan="3" align="center" style="width:180px;padding:20px 0;text-align:center;vertical-align:middle;">${logo}${p.company?`<div style="padding:8px 12px 0;font-size:22px;line-height:26px;font-weight:bold;overflow-wrap:anywhere;">${esc(p.company)}</div>`:''}</td><td align="right" height="38" style="height:38px;padding:10px 16px 0 0;"><table ${table} data-business-socials="row"><tr>${socials}</tr></table></td></tr><tr><td height="94" style="height:94px;padding:0 20px 12px 0;"><table ${table} width="100%"><tr><td style="border-left:1px solid #999999;padding:14px 0 14px 24px;"><div style="font-size:26px;line-height:30px;font-weight:bold;overflow-wrap:anywhere;">${esc(p.fullName)}</div>${p.role?`<div style="font-size:15px;line-height:21px;">${esc(p.role)}</div>`:''}${p.tagline?`<div style="font-size:11px;padding-top:5px;">${esc(p.tagline)}</div>`:''}</td></tr></table></td></tr><tr><td height="48" style="height:48px;padding:0 8px 0 22px;background-color:${accent};border-radius:45px 0 14px 0;"><table ${table} width="100%" data-business-contacts="strip" style="width:100%;table-layout:fixed;"><tr>${contacts}</tr></table></td></tr></table>`.replace(/style="/g,'style="box-sizing:content-box;');
 }
