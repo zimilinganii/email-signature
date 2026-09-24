@@ -16,4 +16,18 @@ for (const [name, body] of Object.entries(art)) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 32 32">${body}</svg>`;
   await sharp(Buffer.from(svg)).png().toFile(new URL(`${name}.png`, destination).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 }
+const lavender = '#a6a8d4';
+const disc = `<circle cx="16" cy="16" r="15" fill="${lavender}"/>`;
+const personal = {
+  phone: `${disc}<path d="M10 7 7 10c0 7 8 15 15 15l3-3-5-4-3 3c-3-1-5-3-6-6l3-3z" fill="white" transform="translate(1 -1) scale(.94)"/>`,
+  email: `${disc}<rect x="8" y="10" width="16" height="12" rx="1" fill="white"/><path d="m8 10 8 7 8-7m-16 12 5-6m11 6-5-6" fill="none" stroke="${lavender}" stroke-width="1.3"/>`,
+  website: `${disc}<g fill="none" stroke="white" stroke-width="1.2"><circle cx="16" cy="16" r="9"/><ellipse cx="16" cy="16" rx="4" ry="9"/><path d="M7 16h18M9 11h14M9 21h14"/></g>`,
+  linkedin: art.linkedin.replace(tile,'').replaceAll('white',lavender),
+  github: art.github.replace('#181818',lavender),
+  facebook: `<path fill="${lavender}" d="M19 30V18h4l1-5h-5v-3c0-2 1-3 3-3h3V2h-4c-5 0-8 3-8 8v3H9v5h4v12z"/>`,
+  twitter: `<path fill="${lavender}" d="M29 7l-3 1 2-4-5 2c-6-4-12 1-10 6C8 12 5 9 2 6c-2 4 0 7 3 9l-3-1c0 4 3 6 6 7l-3 1c2 3 4 4 7 4-4 2-7 2-11 1 16 10 28-3 27-17l3-4z"/>`,
+};
+for (const [name, body] of Object.entries(personal)) {
+  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 32 32">${body}</svg>`)).png().toFile(new URL(`personal-${name}.png`,destination).pathname.replace(/^\/([A-Za-z]:)/,'$1'));
+}
 console.log('Rendered five 96px PNG icons for 16px display.');

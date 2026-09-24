@@ -12,6 +12,8 @@ Review & create approves the current preview and reveals export actions. Editing
 
 ## Reference-inspired contact icons
 
+The personal reference layout is a 660px-wide email table with a fixed social column, thin separator lines, a 132px default portrait inside two concentric rings, a bold name and uppercase title pill. Phone and email share the first contact row; website aligns with phone underneath. Location remains omitted. Personal icons use a coordinated lavender palette; editable accent colors apply to the frame, separators and title pill. Extra-long details wrap within their columns. Narrow previews scroll horizontally to preserve the exported geometry. The optional tagline remains available but is blank by default to match the reference.
+
 Email and LinkedIn use blue tiles; GitHub uses a cat silhouette, phone uses a handset, and personal websites use a profile in a browser window. The code-drawn PNGs in `public/icons/` are 96px assets displayed at 16px. They are interpretations of the supplied references, not cropped copies. Labels remain visible if email clients block images.
 
 Rebuild icons with `node scripts/build-icons.mjs`. Previews use local assets; exported HTML uses public HTTPS URLs. Set `VITE_PUBLIC_ASSET_BASE_URL` to a permanent public base URL when moving hosting, and deploy the `icons/` directory there. Local exports default to the current GitHub Pages address. Making the repository private must not remove the public image host; previously sent signatures still reference their original URLs.

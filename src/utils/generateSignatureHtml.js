@@ -1,5 +1,6 @@
 import { isValidUrl } from './validateProfile';
 import { iconUrl, socialIconName } from './signatureIcons';
+import { personalSignature } from './personalSignature';
 export const escapeHtml = (value = '') => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 const color = (v, fallback) => /^#[a-f0-9]{6}$/i.test(v) ? v : fallback;
 const size = (v, fallback) => Math.max(40, Math.min(180, Number(v) || fallback));
@@ -10,6 +11,7 @@ export function generateSignatureHtml(p, { preview = false } = {}) {
   const accent = color(p.accent, business ? '#b5ef39' : '#a6a8d4');
   const background = color(p.background, '#ffffff');
   const text = color(p.textColor, '#243b35');
+  if (!business) return personalSignature(p, { preview, accent, background, text, escapeHtml, safeImage });
   const table = 'cellpadding="0" cellspacing="0" border="0" role="presentation"';
   const icon = name => `<img src="${escapeHtml(preview ? `${import.meta.env.BASE_URL}icons/${name}.png` : iconUrl(name))}" alt="" width="16" height="16" style="vertical-align:middle;border:0;" />`;
   const link = (href, label) => `<a href="${escapeHtml(href)}" style="color:${text};text-decoration:none;">${escapeHtml(label)}</a>`;

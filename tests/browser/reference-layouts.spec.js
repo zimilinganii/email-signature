@@ -1,6 +1,26 @@
 import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
 
+test('personal reference geometry keeps contact columns aligned', async ({page},testInfo)=>{
+  await page.goto('/');
+  const photo = await sharp({create:{width:400,height:400,channels:3,background:'#dce0fc'}}).png().toBuffer();
+  await page.evaluate(async source=>{
+    const {generateSignatureHtml}=await import('/src/utils/generateSignatureHtml.js');
+    const {defaultProfile}=await import('/src/data/defaultProfile.js');
+    document.body.innerHTML=generateSignatureHtml({...defaultProfile,fullName:'Michel Hansen',role:'Marketing expert',phone:'000 123 456 789',email:'hello@example.com',website:'https://example.com',photoUrl:source,links:[{label:'Facebook',url:'https://facebook.com',enabled:true},{label:'Twitter',url:'https://x.com',enabled:true},{label:'LinkedIn',url:'https://linkedin.com',enabled:true}]},{preview:true});
+    document.body.style.margin='0';
+  },`data:image/png;base64,${photo.toString('base64')}`);
+  const card=page.locator('[data-template="personal-circle"]');
+  const bounds=await card.boundingBox();expect(bounds.width).toBe(660);
+  const grid=page.locator('[data-personal-contacts]');
+  const phone=await grid.getByRole('link',{name:'000 123 456 789'}).boundingBox();
+  const website=await grid.getByRole('link',{name:'example.com',exact:true}).boundingBox();
+  expect(Math.abs(phone.x-website.x)).toBeLessThan(1);
+  const frame=await page.locator('[data-personal-photo]').boundingBox();
+  expect(Math.abs(frame.width-frame.height)).toBeLessThan(1);
+  await card.screenshot({path:testInfo.outputPath('personal-reference.png')});
+});
+
 test('personal and business uploads, crop controls, and independent drafts', async ({ page }, testInfo) => {
   // A generated geometric fixture avoids publishing anyone's portrait in tests.
   const photo = await sharp({create:{width:400,height:600,channels:3,background:'#aaa5d3'}}).png().toBuffer();
