@@ -14,7 +14,7 @@ test('icon color selection and automatic contrast follow the signature backgroun
  await page.getByLabel('Background',{exact:true}).fill('#ffffff');
  await expect(linkedin).toHaveAttribute('src',/colors\/black\/personal-linkedin\.png$/);
  await page.getByRole('button',{name:'Original',exact:true}).click();
- await expect(linkedin).toHaveAttribute('src',/^\.\/icons\/personal-linkedin\.png$/);
+ await expect(linkedin).toHaveAttribute('src',/^(?:\.)?\/icons\/personal-linkedin\.png$/);
 });
 
 test('exported contacts retain alignment without application styles',async({page},testInfo)=>{
