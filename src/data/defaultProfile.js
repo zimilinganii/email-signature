@@ -1,6 +1,6 @@
 export const defaultProfile = {
-  mode: 'personal', accent: '#256b58', background: '#ffffff', textColor: '#243b35',
-  layout: 'side', photoSize: 88, photoRound: 50, logoSize: 100, logoUrl: '', tagline: 'Let’s keep in touch.',
+  mode: 'personal', accent: '#a6a8d4', background: '#ffffff', textColor: '#243b35',
+  layout: 'side', photoSize: 100, photoRound: 50, logoSize: 80, logoUrl: '', tagline: 'Let’s keep in touch.',
   fullName: 'Your Name',
   role: 'Your Role',
   company: 'Your Company',

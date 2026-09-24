@@ -5,6 +5,8 @@ A clean, client-side React/Vite tool for creating a professional email signature
 ## Features
 
 - Live signature preview
+- Personal circular-photo and business portrait layouts inspired by the supplied references
+- Photo/logo uploads, crop zoom and positioning, and separate drafts per mode
 - Contact details and social-link editing
 - Email-safe table layout with inline styles
 - Copy rendered signature, copy HTML, and download HTML
@@ -29,6 +31,10 @@ npm run preview
 ```
 
 See the documentation in [`docs/`](docs/) for OAuth setup, customization, compatibility, privacy, and deployment.
+
+## Verification
+
+Run `npm test` for signature-generation and Gmail-service tests. Run `npm run test:browser` for the upload, crop, draft-switching and mobile-layout browser test. The browser test uses installed Microsoft Edge by default; set `PLAYWRIGHT_CHANNEL` to `chrome` to use installed Chrome. Google authorization and real email-client rendering require separate account testing.
 
 ## Gmail integration
 

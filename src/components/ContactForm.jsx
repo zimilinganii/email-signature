@@ -1,6 +1,6 @@
 export function ContactForm({ profile, onChange, errors }) {
   const fields = [
-    ['fullName', 'Full name', 'Your Name'], ...(profile.mode === 'business' ? [['role', 'Role or title', 'Designer'], ['company', 'Business name', 'Company name']] : []),
+    ['fullName', 'Full name', 'Your Name'], ['role', 'Title or subtitle (optional)', 'Creator'], ...(profile.mode === 'business' ? [['company', 'Business name', 'Company name']] : []),
     ['email', 'Email', 'you@example.com'], ['phone', 'Phone', '+27 00 000 0000'], ['website', 'Website', 'https://example.com'],
     ['tagline', 'Sign-off or tagline', 'Let’s keep in touch'],
   ];
