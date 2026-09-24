@@ -17,7 +17,7 @@ export function prepareGmailExport(profile, { omitUploads=false }={}) {
   const html=compactSignatureHtml(generateSignatureHtml(copy));
   const hasUploads=uploads.length>0&&!omitUploads;
   let issue='';
-  if(hasUploads)issue='Your uploaded photo or logo is embedded in the HTML. Gmail may reject it as too long. Use a public HTTPS image URL in Photos & logo, or choose Copy for Gmail without uploads below.';
+  if(hasUploads)issue='Your photo or logo is not ready for Gmail yet. Select Review & create to upload the optimized image. If hosting is not connected or the upload fails, follow the setup or retry message. Your image will not be silently removed.';
   else if(html.length>GMAIL_COPY_BUDGET)issue='This signature has too much HTML for reliable Gmail pasting. Shorten long links or remove extra social links, then try again.';
   return {html,characters:html.length,hasUploads,issue,ready:!issue};
 }

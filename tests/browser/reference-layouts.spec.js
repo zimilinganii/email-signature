@@ -7,7 +7,7 @@ test('Gmail copy prevents embedded uploads and offers an explicit image-free alt
  await page.getByRole('button',{name:/Upload your photo/}).click();
  await page.getByLabel('Upload your photo',{exact:true}).setInputFiles('public/icons/website.png');
  await page.getByRole('button',{name:'Review & create →',exact:true}).click();
- await page.getByRole('button',{name:'Copy signature',exact:true}).first().click();
+ await expect(page.getByRole('button',{name:'Copy signature',exact:true}).first()).toBeDisabled();
  expect(await page.evaluate(()=>window.copied.length)).toBe(0);
  await page.getByRole('button',{name:'Copy for Gmail without uploads',exact:true}).click();
  const html=await page.evaluate(()=>window.copied[0]);

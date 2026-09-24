@@ -12,7 +12,7 @@ A clean, client-side React/Vite tool for creating a professional email signature
 - Copy rendered signature, copy HTML, and download HTML
 - Optional Gmail installation using `gmail.settings.basic`
 - Guided Outlook and Apple Mail installation
-- No backend or stored personal data in the first version
+- Optional Cloudinary image hosting for direct uploads; contact fields remain in browser memory
 
 ## Development
 
@@ -22,6 +22,8 @@ npm run dev
 ```
 
 Create `.env` from `.env.example` and set a Google OAuth client ID if Gmail installation is required. Without it, the generator and manual installation flows still work.
+
+For the upload → create → copy flow with photos, configure the Cloudinary cloud name and unsigned upload preset using [image hosting setup](docs/image-hosting.md). Without this one-time setup, photos can preview locally but cannot be included in a Gmail-ready copy. Images are resized for email and may lose some quality.
 
 ## Production build
 

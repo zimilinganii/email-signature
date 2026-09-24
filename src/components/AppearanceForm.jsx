@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { IconColorControl } from './IconColorControl';
+import { optimizeImageCanvas } from '../utils/optimizeImage';
 
 function ImageEditor({ title, field, profile, onChange }) {
   const [error,setError] = useState('');
@@ -19,7 +20,7 @@ function ImageEditor({ title, field, profile, onChange }) {
       const h = w/ratio;
       ctx.drawImage(image,(image.width-w)*settings.x/100,(image.height-h)*settings.y/100,w,h,0,0,canvas.width,canvas.height);
     } else ctx.drawImage(image,0,0,canvas.width,canvas.height);
-    onChange(field,canvas.toDataURL('image/png'));
+    try {onChange(field,optimizeImageCanvas(canvas,{photo}));setError('');} catch(e) {setError(e.message);}
   }
   function upload(event) {
     const file=event.target.files[0];event.target.value='';if(!file)return;
@@ -34,7 +35,7 @@ function ImageEditor({ title, field, profile, onChange }) {
   return <div className="image-editor"><h3>{title}</h3><p className="hint">{photo ? (portrait?'Your portrait appears on the right of the business card.':'Your picture appears in the circular frame.') : 'Your logo appears above your name and company.'}</p>{current&&<img className={`upload-thumbnail ${portrait?'portrait':''}`} src={current} alt={`${title} preview`}/>}<label className="upload-zone">＋ {current?'Replace':'Upload'} {title.toLowerCase()}<input aria-label={`Upload ${title.toLowerCase()}`} type="file" accept="image/png,image/jpeg,image/webp" onChange={upload}/></label><details><summary>Use a hosted image instead</summary><label><span>Public HTTPS image URL</span><input type="url" placeholder="https://your-site.com/image.png" value={current.startsWith('data:')?'':current} onChange={e=>{version.current++;original.current=null;onChange(field,e.target.value);}}/></label></details>{current&&<><label><span>Display size · {profile[sizeField]}px</span><input type="range" min="40" max="180" value={profile[sizeField]} onChange={e=>onChange(sizeField,Number(e.target.value))}/></label>{photo&&original.current&&[['zoom','Zoom',1,3,.1],['x','Horizontal position',0,100,1],['y','Vertical position',0,100,1]].map(([key,label,min,max,step])=><label key={key}><span>{label} · {cropState[key]}{key==='zoom'?'×':'%'}</span><input type="range" min={min} max={max} step={step} value={cropState[key]} onChange={e=>{const next={...cropState,[key]:Number(e.target.value)};setCropState(next);crop(original.current,next);}}/></label>)}<button className="text-button" onClick={()=>{version.current++;original.current=null;onChange(field,'');}}>Remove image</button></>}{error&&<p role="alert" className="error">{error}</p>}</div>;
 }
 export function ImageFields({profile,onChange}) {
-  return <><ImageEditor key={`${profile.mode}-photo`} title="Your photo" field="photoUrl" profile={profile} onChange={onChange}/>{profile.mode==='business'&&<ImageEditor title="Business logo" field="logoUrl" profile={profile} onChange={onChange}/>}<p className="hint">PNG, JPG or WebP, up to 5 MB. Uploads stay on your device. For Gmail delivery, use public HTTPS image URLs.</p></>;
+  return <><ImageEditor key={`${profile.mode}-photo`} title="Your photo" field="photoUrl" profile={profile} onChange={onChange}/>{profile.mode==='business'&&<ImageEditor title="Business logo" field="logoUrl" profile={profile} onChange={onChange}/>}<p className="hint">Images are resized for email and may lose some quality.</p><p className="hint">When you create your signature, uploaded images are hosted publicly so email recipients can see them.</p></>;
 }
 export function AppearanceForm({profile,onChange}) {
   return <><div className="color-grid">{[['accent','Accent'],['background','Background'],['textColor','Text']].map(([key,label])=><label key={key}><span>{label}</span><input type="color" value={profile[key]} onChange={e=>onChange(key,e.target.value)}/></label>)}</div><IconColorControl profile={profile} onChange={onChange}/>{profile.mode==='personal'&&<label><span>Signature layout</span><select value={profile.layout} onChange={e=>onChange('layout',e.target.value)}><option value="side">Circular photo · reference layout</option><option value="stack">Stacked</option></select></label>}<p className="hint">{profile.mode==='business'?'Business layout: logo and name, contact details, portrait, then social links on an accent strip.':'Personal layout: social links, framed circular portrait, then your name and contact details.'}</p></>;
