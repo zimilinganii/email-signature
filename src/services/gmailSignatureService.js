@@ -1,7 +1,7 @@
 const API_ROOT = 'https://gmail.googleapis.com/gmail/v1/users/me/settings/sendAs';
 
 async function gmailRequest(token, url, options = {}) {
-  const response = await fetch(url, { ...options, headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', ...(options.headers || {}) } });
+  const response = await fetch(url, { ...options, signal: AbortSignal.timeout(20000), headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json', ...(options.headers || {}) } });
   if (!response.ok) throw new Error(`Gmail returned ${response.status}. Check consent and API configuration.`);
   return response.json();
 }
