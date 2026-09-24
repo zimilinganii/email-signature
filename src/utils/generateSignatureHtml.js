@@ -34,7 +34,7 @@ export function generateSignatureHtml(p, { preview = false } = {}) {
   const placeholder = preview && !hasPhoto ? `<div style="width:${width}px;height:${height}px;background-color:#f0f0f5;border-radius:${business?0:50}%;text-align:center;color:#77798d;font-size:11px;"><div style="padding-top:${Math.round(height/3)}px;font-size:26px;">＋</div>Upload photo</div>` : '';
   const photo = picture || placeholder;
   const photoCell = photo ? `<td style="vertical-align:middle;${business?'padding:0;':'padding:10px 24px 10px 10px;'}">${business ? photo : `<table ${table} style="border:1px solid ${accent};border-radius:50%;padding:7px;"><tr><td style="border:4px solid ${accent};border-radius:50%;padding:4px;">${photo}</td></tr></table>`}</td>` : '';
-  const role = p.role ? `<span style="display:inline-block;background-color:${accent};color:#172033;border-radius:20px;padding:3px 10px;font-size:10px;">${escapeHtml(p.role)}</span>` : '';
+  const role = p.role ? `<span style="display:inline-block;background-color:${accent};color:#172033;border-radius:20px;padding:4px 10px;font-size:12px;line-height:16px;">${escapeHtml(p.role)}</span>` : '';
   const tagline = p.tagline ? `<div style="font-size:10px;padding-top:10px;">${escapeHtml(p.tagline)}</div>` : '';
   const title = `<div style="font-size:${business?25:23}px;font-weight:bold;line-height:1.1;padding-bottom:9px;">${escapeHtml(p.fullName)}</div>${role}`;
   const logo = business && p.logoUrl && safeImage(p.logoUrl) ? `<img src="${escapeHtml(p.logoUrl)}" alt="${escapeHtml(p.company || 'Business logo')}" width="${size(p.logoSize,80)}" style="display:block;height:auto;max-height:64px;object-fit:contain;" />` : '';
