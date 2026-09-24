@@ -7,7 +7,6 @@ export const defaultProfile = {
   email: 'you@example.com',
   phone: '+27 00 000 0000',
   website: 'https://example.com',
-  location: 'South Africa',
   photoUrl: '',
   links: [
     { id: 'linkedin', label: 'LinkedIn', url: 'https://linkedin.com/in/your-profile', enabled: true },
