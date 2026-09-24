@@ -5,7 +5,7 @@ GitHub Pages hosts the generator. Cloudinary stores optimized user images and re
 ## One-time owner setup
 
 1. Create an account at https://cloudinary.com/users/register and find the Cloud name in the dashboard.
-2. Create an **Unsigned** upload preset named `signature_images`. Restrict allowed formats to JPG/PNG and maximum uploaded size to 100 KB. Use generated unique public IDs; disallow overwrite. Keep delivery public (`upload`). Do not configure automatic deletion of images used in signatures.
+2. Create an **Unsigned** upload preset named `signature_images`. Under **Optimize and Deliver**, restrict **Allowed formats** to JPG/PNG and leave **Format** unset. Use generated unique public IDs, enable **Disallow public ID**, and disallow overwrite. Keep delivery public (`upload`). Do not configure automatic deletion of images used in signatures. Cloudinary presets do not support a per-preset file-size limit; the app limits optimized images to 96 KB. This browser-side check can be bypassed and is not an abuse-prevention boundary. See [Cloudinary preset safeguards](https://cloudinary.com/documentation/upload_presets).
 3. Add `VITE_CLOUDINARY_CLOUD_NAME` and `VITE_CLOUDINARY_UPLOAD_PRESET` as repository **Actions variables**. The Pages workflow passes them to the production build. Deploy again.
 4. For development, set those values in ignored `.env.local` and restart Vite. No API key or API secret belongs in the frontend.
 5. Test with a non-sensitive photo: upload, crop, create, copy, paste into Gmail signature settings, save, and send a test message to yourself. Check that a second browser can load the image without signing in.
