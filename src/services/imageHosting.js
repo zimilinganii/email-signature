@@ -23,7 +23,7 @@ export async function uploadSignatureImage(dataUrl) {
 }
 export async function hostProfileImages(profile) {
   const result={...profile};
-  for(const key of profile.mode==='business'?['photoUrl','logoUrl']:['photoUrl']){
+  for(const key of profile.mode==='business'?['logoUrl']:['photoUrl']){
     if(result[key]?.startsWith('data:'))result[key]=await uploadSignatureImage(result[key]);
   }
   return result;

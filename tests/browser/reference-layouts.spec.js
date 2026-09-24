@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import sharp from 'sharp';
 
 test('Gmail copy prevents embedded uploads and offers an explicit image-free alternative',async({page})=>{
+ await page.route('https://api.cloudinary.com/**',route=>route.fulfill({status:400,body:'{}'}));
  await page.goto('/');
  await page.evaluate(()=>{window.copied=[];Object.defineProperty(navigator,'clipboard',{configurable:true,value:{write:async items=>{window.copied.push(await (await items[0].getType('text/html')).text());}}});});
  await page.getByRole('button',{name:/Upload your photo/}).click();
@@ -90,11 +91,11 @@ test('personal and business uploads, crop controls, and independent drafts', asy
   const personalSrc = await personal.locator('img[alt="Your Name"]').getAttribute('src');
   await page.screenshot({path:testInfo.outputPath('personal.png'),fullPage:true});
   await page.getByRole('button', {name:'▣ Business',exact:true}).click();
-  await page.getByLabel('Upload your photo', {exact:true}).setInputFiles({name:'portrait.png',mimeType:'image/png',buffer:photo});
+  await expect(page.getByLabel('Upload your photo', {exact:true})).toHaveCount(0);
   await page.getByLabel('Upload business logo', {exact:true}).setInputFiles('public/icons/website.png');
-  const business = page.locator('[data-template="business-portrait"]');
+  const business = page.locator('[data-template="business-logo"]');
   const portrait = business.locator('img[alt="Your Name"]');
-  await expect(portrait).toHaveAttribute('height','180');
+  await expect(portrait).toHaveCount(0);
   await expect(business.locator('img[alt="Your Company"]')).toBeVisible();
   await page.screenshot({path:testInfo.outputPath('business.png'),fullPage:true});
   await page.getByRole('button',{name:'♡ Personal',exact:true}).click();

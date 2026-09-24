@@ -1,3 +1,4 @@
+import { socialRail } from './socialRail';
 import { isValidUrl } from './validateProfile';
 import { iconUrl } from './signatureIcons';
 import { themedIconName } from '../data/iconPalette';
@@ -10,9 +11,7 @@ export function personalSignature(p, { preview, accent, background, text, escape
     const asset = themedIconName(`personal-${name}`, p.iconColor, background);
     return `<img src="${esc(preview ? `${import.meta.env.BASE_URL}icons/${asset}.png` : iconUrl(asset))}" alt="${esc(label)}" width="${dimension}" height="${dimension}" style="display:block;border:0;" />`;
   };
-  const socialNames = { facebook:'facebook', twitter:'twitter', 'x / twitter':'twitter', x:'twitter', linkedin:'linkedin', github:'github', portfolio:'website', website:'website', 'personal website':'website' };
-  const links = p.links.filter(l => l.enabled && l.url && isValidUrl(l.url));
-  const rail = links.length ? `<table ${table} width="34" style="width:34px;">${links.map((l,i) => `<tr><td align="center" style="padding:0;text-align:center;"><a href="${esc(l.url)}" title="${esc(l.label)}" style="color:${accent};font-size:10px;font-weight:bold;text-decoration:none;">${socialNames[l.label.trim().toLowerCase()] ? image(socialNames[l.label.trim().toLowerCase()],l.label,socialNames[l.label.trim().toLowerCase()] === 'linkedin' ? 34 : 28) : esc(l.label)}</a></td></tr>${i<links.length-1?`<tr><td align="center" style="padding:8px 0;"><table ${table} width="1"><tr><td height="26" style="width:1px;height:26px;background-color:${accent};font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr>`:''}`).join('')}</table>` : '';
+  const rail = socialRail(p, { preview, accent, background, escapeHtml: esc });
   const hasPhoto = p.photoUrl && safeImage(p.photoUrl);
   const portrait = hasPhoto ? `<img src="${esc(p.photoUrl)}" alt="${esc(p.fullName)}" width="${photoSize}" height="${photoSize}" style="display:block;width:${photoSize}px;height:${photoSize}px;object-fit:cover;border-radius:50%;border:0;" />` : (preview ? `<div style="width:${photoSize}px;height:${photoSize}px;background-color:#e0e2fb;border-radius:50%;text-align:center;color:#737799;font-size:11px;"><div style="padding-top:${Math.round(photoSize*.32)}px;font-size:24px;">＋</div>Upload photo</div>` : '');
   const frame = portrait ? `<table ${table} data-personal-photo="frame" style="border:1px solid #d0d1e7;border-radius:50%;border-collapse:separate;"><tr><td style="padding:14px;"><table ${table} style="border:5px solid ${accent};border-radius:50%;border-collapse:separate;"><tr><td style="padding:0;">${portrait}</td></tr></table></td></tr></table>` : '';

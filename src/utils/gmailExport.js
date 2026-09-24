@@ -11,7 +11,7 @@ export function compactSignatureHtml(html) {
 }
 export function prepareGmailExport(profile, { omitUploads=false }={}) {
   const copy={...profile};
-  const fields=profile.mode==='business'?['photoUrl','logoUrl']:['photoUrl'];
+  const fields=profile.mode==='business'?['logoUrl']:['photoUrl'];
   const uploads=fields.filter(field=>/^(data:|blob:)/i.test(copy[field] || ''));
   if(omitUploads)uploads.forEach(field=>{copy[field]='';});
   const html=compactSignatureHtml(generateSignatureHtml(copy));

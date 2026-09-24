@@ -20,6 +20,8 @@ for (const [name, body] of Object.entries(art)) {
 const lavender = '#a6a8d4';
 const disc = `<circle cx="16" cy="16" r="15" fill="${lavender}"/>`;
 const personal = {
+  instagram: `<rect x="4" y="4" width="24" height="24" rx="7" fill="none" stroke="${lavender}" stroke-width="3"/><circle cx="16" cy="16" r="6" fill="none" stroke="${lavender}" stroke-width="3"/><circle cx="24" cy="8" r="2" fill="${lavender}"/>`,
+  whatsapp: `<path d="M5 26 3 30l7-2a13 13 0 1 0-5-2Z" fill="none" stroke="${lavender}" stroke-width="2"/><path d="m11 8-3 3c0 6 7 13 13 13l3-3-5-4-2 3c-3-1-5-3-6-6l3-2z" fill="${lavender}"/>`,
   phone: `${disc}<path d="M10 7 7 10c0 7 8 15 15 15l3-3-5-4-3 3c-3-1-5-3-6-6l3-3z" fill="white" transform="translate(1 -1) scale(.94)"/>`,
   email: `${disc}<rect x="8" y="10" width="16" height="12" rx="1" fill="white"/><path d="m8 10 8 7 8-7m-16 12 5-6m11 6-5-6" fill="none" stroke="${lavender}" stroke-width="1.3"/>`,
   website: `${disc}<g fill="none" stroke="white" stroke-width="1.2"><circle cx="16" cy="16" r="9"/><ellipse cx="16" cy="16" rx="4" ry="9"/><path d="M7 16h18M9 11h14M9 21h14"/></g>`,

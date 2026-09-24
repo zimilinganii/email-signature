@@ -15,4 +15,4 @@ export const defaultProfile = {
   ],
 };
 
-export const platformOptions = ['LinkedIn', 'GitHub', 'Portfolio', 'X / Twitter', 'Instagram', 'WhatsApp'];
+export const platformOptions = ['LinkedIn', 'GitHub', 'Portfolio', 'X / Twitter', 'Instagram', 'WhatsApp', 'Facebook'];
