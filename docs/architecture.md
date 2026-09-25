@@ -28,6 +28,7 @@ flowchart TD
   Auth --> Google[Google Identity Services]
   App --> Gmail[gmailSignatureService]
   Gmail --> API[Gmail REST API]
+  App --> Footer[WebsiteFooter: developer credit]
   App --> Guides[ProviderInstructions / setup guides / export notice]
 ```
 
@@ -42,6 +43,7 @@ flowchart TD
 | AppearanceForm | Colors, contact-strip color, layout and IconColorControl |
 | ImageFields / ImageEditor | Mode-specific image upload, crop and size controls |
 | IconColorControl | Original/palette/automatic-contrast icon options |
+| WebsiteFooter | Website-only developer credit linked to Zimi Lingani’s GitHub; never included in signature exports |
 | ProviderInstructions | Gmail, Outlook, Apple Mail and all copy-method instructions |
 | GmailExportNotice | HTML budget/upload status and explicit image-free fallback |
 | ImageHostingSetup | Owner guidance when upload hosting is missing |
@@ -87,4 +89,3 @@ Tables, inline styles and raster PNG icons maximize email compatibility. Browser
 ## Dependencies
 
 Runtime: React, React DOM, Vite React plugin/build tooling. No Google SDK package: GIS is loaded from Google and Gmail uses fetch. Development: Vitest, Testing Library, Playwright, Sharp and ESLint. GitHub Actions installs from package-lock.json. Keep lockfile changes reviewed; package ranges currently include latest, so deliberate dependency upgrades require regression testing.
-
