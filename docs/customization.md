@@ -4,13 +4,15 @@ Personal mode: circular portrait, title badge, left platform rail and contact de
 
 Leave Business name blank if the logo includes its wording. The logo then enlarges to at least 150px, preserving aspect ratio. With a company name it remains smaller with the text below. Personal images offer crop zoom/position. Input accepts PNG/JPG/WebP up to 5 MiB and 40 megapixels; output is optimized JPEG/PNG at most 96 KiB before optional hosting.
 
+Business uses a single compact header: name and role align near the logo’s top edge, icons sit alongside them, and no icon area is reserved when all platforms are absent. There is no separate full-width social row.
+
 Business contacts use 13px text and 18px icons, with tighter name/title-to-strip spacing. Contact links remain clickable text and preserve the single-line horizontal layout; long details can widen the signature.
 
 Style controls accent, background, text, icon color, and business Contact strip background. Contact text/icon auto-contrast uses its actual surface. Personal mode additionally supports stacked layout.
 
 ## Platforms
 
-The selector always shows LinkedIn, GitHub, Portfolio, X/Twitter, Instagram, WhatsApp and Facebook. Add as many rows as needed; no hard three-platform cap. Empty, invalid or disabled links do not render. Icons shrink as the populated enabled count grows, with a minimum of 18px for legibility. Personal rails group eight platforms per column with separators. Business groups ten per row at the top right; LinkedIn remains proportionally larger.
+The selector always shows LinkedIn, GitHub, Portfolio, X/Twitter, Instagram, WhatsApp and Facebook. Add as many rows as needed; no hard three-platform cap. Empty, invalid or disabled links do not render. Icons shrink as the populated enabled count grows, with a minimum of 18px for legibility. Personal rails group eight platforms per column with separators. Business groups four per row alongside the name/title at the top right; LinkedIn remains proportionally larger.
 
 Very large lists increase HTML length and layout size. The Gmail export budget remains active and will explain when users must shorten a signature; unlimited editing does not mean unlimited provider capacity.
 

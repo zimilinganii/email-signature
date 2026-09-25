@@ -31,7 +31,7 @@ test('many business platforms form aligned rows and every valid link remains pre
  });
  await page.setContent(html);
  const rows=page.locator('[data-business-socials] tr');
- await expect(rows).toHaveCount(2);await expect(rows.first().locator('a')).toHaveCount(10);await expect(rows.last().locator('a')).toHaveCount(2);
+ await expect(rows).toHaveCount(3);await expect(rows.first().locator('a')).toHaveCount(4);await expect(rows.last().locator('a')).toHaveCount(4);
  for(const row of await rows.all()){
   const boxes=await row.locator('img').evaluateAll(items=>items.map(el=>{const r=el.getBoundingClientRect();return {x:r.x,right:r.right,y:r.y,width:r.width};}));
   for(let i=0;i<boxes.length;i++){expect(boxes[i].width).toBe(18);if(i){expect(boxes[i].y).toBe(boxes[0].y);expect(boxes[i].x).toBeGreaterThan(boxes[i-1].right);}}
