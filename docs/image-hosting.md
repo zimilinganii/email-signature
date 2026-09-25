@@ -10,7 +10,7 @@ GitHub Pages hosts the generator. Cloudinary stores optimized user images and re
 4. For development, set those values in ignored `.env.local` and restart Vite. No API key or API secret belongs in the frontend.
 5. Test with a non-sensitive photo: upload, crop, create, copy, paste into Gmail signature settings, save, and send a test message to yourself. Check that a second browser can load the image without signing in.
 
-The preset and cloud name are public configuration. An unsigned preset can be used outside this app, so enforce limits in Cloudinary and monitor quotas. For an unrestricted public launch, add an authenticated, rate-limited signing endpoint; client-side checks alone do not prevent abuse. No live Cloudinary test has been performed without an owner-provided account.
+The preset and cloud name are public configuration. An unsigned preset can be used outside this app, so enforce allowed-format restrictions in Cloudinary and monitor quotas. For an unrestricted public launch, add an authenticated, rate-limited signing endpoint; client-side checks alone do not prevent abuse. An owner-authorized generated-image upload and public-URL retrieval succeeded during setup on 2026-09-24. This does not prove rendering in every email client.
 
 ## Image handling
 
