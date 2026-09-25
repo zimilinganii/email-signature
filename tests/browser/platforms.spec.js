@@ -57,6 +57,6 @@ test('personal platforms form extra compact columns without dropping links',asyn
 test('manual includes every export method and both provider setup paths',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:'Review & create →',exact:true}).click();
  const guide=page.locator('.instructions');
- await expect(guide).toContainText('Copy for Gmail without uploads');await expect(guide).toContainText('Copy HTML (advanced)');await expect(guide).toContainText('Download HTML');
- await expect(guide).toContainText('Gmail on a computer');await expect(guide).toContainText('Classic Outlook for Windows');await expect(guide).toContainText('still working on automatic installation');
+ await expect(guide.getByLabel('Installation method').locator('option')).toHaveCount(4);
+ await expect(guide.locator('.guide-steps')).toContainText('Gmail · web');await guide.getByLabel('Email provider').selectOption('classic');await expect(guide.locator('.guide-steps')).toContainText('File → Options → Mail');await expect(guide).toContainText('still working on automatic installation');
 });

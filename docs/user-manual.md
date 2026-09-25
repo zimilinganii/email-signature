@@ -11,6 +11,14 @@
 
 Automation notice: We’re still working on automatic installation. Use manual setup for now. Optional Google installation requires configuration and testing.
 
+## Guided installation selectors
+
+After Review & create, scroll to Install your signature. Select Email provider (Gmail, Outlook web/new, classic Outlook, or Apple Mail), then Installation method. The Prepare panel shows the selected action and the Install panel shows only that provider’s steps. Changing either choice updates the guide. All dropdowns keep native keyboard/touch support.
+
+## Saved drafts
+
+Your form, styles, platforms and processed images autosave in this browser and restore after refresh. Personal and business drafts are saved independently. Google sessions are not saved. Use Reset & clear saved data to clear both drafts on shared devices; confirm the prompt. Hosted images and existing email signatures are not deleted. If storage is blocked/full, a warning appears: keep the page open and download the signature. Clearing browser data removes drafts. The original image and crop handles are not retained; re-upload to recrop after refresh.
+
 ## Copy methods (for both Gmail and Outlook)
 
 | Action | What it produces | How to install |

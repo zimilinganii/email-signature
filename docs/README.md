@@ -28,5 +28,5 @@ This is the permanent documentation source for the personal/business Email Signa
 
 Create personal or business signatures with live preview, safe HTML, hosted images and manual installation. No location field. Business uses only a logo; personal uses a circular portrait. The Gmail OAuth adapter exists but live Google configuration/testing is still required. Outlook automation is not implemented. Manual installation is the supported baseline.
 
-No database or backend is used. Drafts are held only in browser memory and disappear on reload. Cloudinary images persist separately. Copying a new version does not update signatures already installed in email clients.
+No database or backend is used. Personal and business drafts autosave to localStorage on the same browser and restore after reload. Use Reset & clear saved data on shared devices; no Google tokens are saved. Cloudinary images persist separately. Copying a new version does not update signatures already installed in email clients.
 

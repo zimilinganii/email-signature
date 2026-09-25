@@ -3,7 +3,7 @@
 ## Automated commands
 
 - npm test: Vitest unit tests of escaping, URLs/images, templates, colors, Gmail guards, hosting and OAuth.
-- npm run test:browser: Playwright tests of uploads, crop controls, mode drafts, platform selection/sizing, copy fallbacks, standalone geometry and mobile overflow.
+- npm run test:browser: Playwright tests of uploads, crop controls, mode draft refresh/reset, provider/method selectors and matching actions, platform selection/sizing, copy fallbacks, standalone geometry and mobile overflow.
 - npm run build: Vite production compilation.
 - git diff --check: whitespace/patch sanity.
 

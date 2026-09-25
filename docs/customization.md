@@ -1,8 +1,10 @@
 # Customization
 
-Personal mode: circular portrait, title badge, left platform rail and contact details. Business mode: logo only on the left; name/role beside a divider; platforms top right; horizontal contact strip. Location is not included. Mode drafts are independent during a browser session.
+Personal mode: circular portrait, title badge, left platform rail and contact details. Business mode: logo only on the left; name/role beside a divider; platforms top right; horizontal contact strip. Location is not included. Mode drafts are independent and autosaved on this browser across refreshes.
 
 Leave Business name blank if the logo includes its wording. The logo then enlarges to at least 150px, preserving aspect ratio. With a company name it remains smaller with the text below. Personal images offer crop zoom/position. Input accepts PNG/JPG/WebP up to 5 MiB and 40 megapixels; output is optimized JPEG/PNG at most 96 KiB before optional hosting.
+
+Business contacts use 13px text and 18px icons, with tighter name/title-to-strip spacing. Contact links remain clickable text and preserve the single-line horizontal layout; long details can widen the signature.
 
 Style controls accent, background, text, icon color, and business Contact strip background. Contact text/icon auto-contrast uses its actual surface. Personal mode additionally supports stacked layout.
 

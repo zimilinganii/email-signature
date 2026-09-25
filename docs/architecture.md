@@ -2,7 +2,7 @@
 
 ## Runtime architecture
 
-React/Vite runs entirely in the browser. Profile state, per-mode drafts, uploaded-image crop state, OAuth tokens and upload caches are in memory. There is no application database, server session or persistent draft storage.
+React/Vite runs entirely in the browser. Active profile state is in memory and a versioned, allowlisted profile/draft snapshot autosaves to browser localStorage via draftStorage. Uploaded preview images and hosted URLs are included. Original image/crop controls, OAuth tokens and upload caches remain in memory. There is no server database or server session.
 
 ```mermaid
 flowchart TD
@@ -10,6 +10,7 @@ flowchart TD
   App --> Forms[ContactForm / SocialLinksForm / AppearanceForm]
   Forms --> ImageEditor[ImageFields / ImageEditor]
   ImageEditor --> Optimizer[optimizeImageCanvas]
+  App --> Storage[draftStorage: versioned browser autosave / restore / clear]
   App --> Validate[validateProfile / safeImage]
   App --> Generate[generateSignatureHtml]
   Generate --> Personal[personalSignature]
@@ -44,7 +45,7 @@ flowchart TD
 | ImageFields / ImageEditor | Mode-specific image upload, crop and size controls |
 | IconColorControl | Original/palette/automatic-contrast icon options |
 | WebsiteFooter | Website-only developer credit linked to Zimi Lingani’s GitHub; never included in signature exports |
-| ProviderInstructions | Gmail, Outlook, Apple Mail and all copy-method instructions |
+| ProviderInstructions | Provider and installation-method selectors; matching steps and export actions for Gmail, Outlook and Apple Mail |
 | GmailExportNotice | HTML budget/upload status and explicit image-free fallback |
 | ImageHostingSetup | Owner guidance when upload hosting is missing |
 | GoogleSetupGuide | Owner instructions for OAuth setup |
@@ -61,6 +62,7 @@ SignaturePreview.jsx, CopyButton.jsx and GmailInstallButton.jsx are legacy compo
 - optimizeImage converts browser canvas output into compact JPEG/PNG, aiming at at most 96 KiB.
 - imageHosting validates output, uploads generic file names and returns verified HTTPS URLs; caches successful uploads in memory.
 - gmailExport compacts markup and applies an 8,000-character conservative app guard; it is not a guarantee about Gmail counting.
+- draftStorage saves only known profile fields and mode drafts, rejects corrupt/incompatible snapshots, and supports clearing saved data. Storage failures surface in the UI; OAuth state is excluded.
 - copySignature writes text/html and text/plain; permission failure attempts a formatted legacy clipboard path.
 - googleAuth wraps GIS token consent, expiry and revocation.
 - gmailSignatureService lists send-as identities and updates only the primary signature.

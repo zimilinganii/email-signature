@@ -4,14 +4,14 @@ A clean, client-side React/Vite tool for creating a personal or business email s
 
 ## Features
 
-- Live signature preview
+- Live signature preview and browser autosave for personal/business drafts
 - Personal circular-photo and logo-only business layouts inspired by the supplied references
 - Photo/logo uploads, crop zoom and positioning, and separate drafts per mode
 - Contact details and adaptive multi-platform editing with a full platform selector
 - Email-safe table layout with inline styles
 - Copy rendered signature, copy HTML, and download HTML
 - Optional Gmail installation using `gmail.settings.basic`
-- Guided Outlook and Apple Mail installation
+- Provider/method-selectable installation guide for Gmail, Outlook and Apple Mail
 - Optional Cloudinary image hosting for direct uploads; contact fields remain in browser memory
 
 ## Development
