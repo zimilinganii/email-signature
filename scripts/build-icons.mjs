@@ -20,6 +20,7 @@ for (const [name, body] of Object.entries(art)) {
 const lavender = '#a6a8d4';
 const disc = `<circle cx="16" cy="16" r="15" fill="${lavender}"/>`;
 const personal = {
+  location: `<path fill="${lavender}" d="M16 2C9 2 5 7 5 13c0 8 11 18 11 18s11-10 11-18C27 7 23 2 16 2Z"/><circle cx="16" cy="13" r="4" fill="white"/>`,
   instagram: `<rect x="4" y="4" width="24" height="24" rx="7" fill="none" stroke="${lavender}" stroke-width="3"/><circle cx="16" cy="16" r="6" fill="none" stroke="${lavender}" stroke-width="3"/><circle cx="24" cy="8" r="2" fill="${lavender}"/>`,
   whatsapp: `<path d="M5 26 3 30l7-2a13 13 0 1 0-5-2Z" fill="none" stroke="${lavender}" stroke-width="2"/><path d="m11 8-3 3c0 6 7 13 13 13l3-3-5-4-2 3c-3-1-5-3-6-6l3-2z" fill="${lavender}"/>`,
   phone: `${disc}<path d="M10 7 7 10c0 7 8 15 15 15l3-3-5-4-3 3c-3-1-5-3-6-6l3-3z" fill="white" transform="translate(1 -1) scale(.94)"/>`,

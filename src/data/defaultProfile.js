@@ -6,6 +6,7 @@ export const defaultProfile = {
   role: 'Your Role',
   company: 'Your Company',
   businessLocation: '',
+  fontFamily: 'arial',
   email: 'you@example.com',
   phone: '+27 00 000 0000',
   website: 'https://example.com',
