@@ -13,9 +13,11 @@ export function generateSignatureHtml(p, { preview = false } = {}) {
   const text = color(p.textColor, '#243b35');
   const html=(business?businessSignature:personalSignature)(p, { preview, accent, background, text, escapeHtml, safeImage });
   const family=signatureFont(p.fontFamily);
+  const requestedSize=Number(p.fontSize);
+  const scale=(Number.isFinite(requestedSize)&&requestedSize>0?Math.max(11,Math.min(17,requestedSize)):13)/13;
   // Explicit font on text-bearing cells/elements survives email-client table defaults.
   return html.replaceAll('font-family:Arial,Helvetica,sans-serif;',`font-family:${family};`).replace(/<(div|a|span|td)\b([^>]*)>/g,(tag,name,attrs)=>{
     if(attrs.includes('font-family:')||(name==='td'&&!/font-size:(?!0)/.test(attrs)))return tag;
     return attrs.includes('style="')?`<${name}${attrs.replace('style="',`style="font-family:${family};`)}>`:`<${name} style="font-family:${family};"${attrs}>`;
-  });
+  }).replace(/(font-size|line-height):([\d.]+)px/g,(_,property,value)=>`${property}:${Math.round(Number(value)*scale*10)/10}px`);
 }

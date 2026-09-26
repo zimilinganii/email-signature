@@ -24,6 +24,10 @@ Review & create optimizes/hosts local images and enables export. Hosted uploads 
 
 ## Fonts and directions
 
+Signature text size adjusts all signature text proportionally from an 11–17px base, preserving the larger name and smaller supporting text. Larger text can widen the contact strip. Text color covers the name, role and address; business Contact text separately controls the strip text and separators. Use automatic contact-text contrast restores a light/dark choice against the strip background. These settings are autosaved and included in copied/downloaded HTML.
+
+The business address uses a dedicated pin column: wrapped lines align with the address text rather than underneath the icon. Click the address text to open directions.
+
 Style → Signature font applies Arial, Verdana, Tahoma, Trebuchet MS, Georgia or Times New Roman to all text in either template. The choice is autosaved. Exported HTML uses explicit font stacks and standard fallbacks; no external font download is required, and recipients may see the fallback when a font is unavailable. Text embedded inside a logo image cannot change font.
 
-The optional business address has a palette-aware PNG pin. Clicking the pin/address opens Google Maps directions with the entered text as the destination. Use a complete street address for precise directions; a city or service area may resolve broadly. The generator does not request your location or contact Google Maps until the link is clicked. No Maps API key is needed for this URL. See [Google Maps URL documentation](https://developers.google.com/maps/documentation/urls/get-started).
+The optional business address has a palette-aware PNG pin. Clicking the address text opens Google Maps directions with the entered text as the destination. Use a complete street address for precise directions; a city or service area may resolve broadly. The generator does not request your location or contact Google Maps until the link is clicked. No Maps API key is needed for this URL. See [Google Maps URL documentation](https://developers.google.com/maps/documentation/urls/get-started).

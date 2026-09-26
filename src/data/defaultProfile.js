@@ -7,6 +7,8 @@ export const defaultProfile = {
   company: 'Your Company',
   businessLocation: '',
   fontFamily: 'arial',
+  fontSize: 13,
+  contactTextColor: '',
   email: 'you@example.com',
   phone: '+27 00 000 0000',
   website: 'https://example.com',
