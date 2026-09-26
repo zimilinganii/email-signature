@@ -86,7 +86,7 @@ docs/          permanent documentation and Mermaid diagrams
 
 ## Rendering choices
 
-Tables, inline styles and raster PNG icons maximize email compatibility. Browser previews are not guarantees of Outlook/Gmail rendering. Business contact fields deliberately expand horizontally rather than wrapping. Very long fields/platform lists can widen or heighten a signature and hit provider limits. No layout uses location information.
+Tables, inline styles and raster PNG icons maximize email compatibility. Browser previews are not guarantees of Outlook/Gmail rendering. Business contact fields deliberately expand horizontally rather than wrapping. Very long fields/platform lists can widen or heighten a signature and hit provider limits. Business optionally shows an address/location below the role, outside the horizontal contact strip. Personal signatures do not show it.
 
 ## Dependencies
 
