@@ -31,7 +31,7 @@ test('many business platforms form aligned rows and every valid link remains pre
  });
  await page.setContent(html);
  const rows=page.locator('[data-business-socials] tr');
- await expect(rows).toHaveCount(2);await expect(rows.first().locator('a')).toHaveCount(10);await expect(rows.last().locator('a')).toHaveCount(2);
+ await expect(rows).toHaveCount(3);await expect(rows.first().locator('a')).toHaveCount(4);await expect(rows.last().locator('a')).toHaveCount(4);
  for(const row of await rows.all()){
   const boxes=await row.locator('img').evaluateAll(items=>items.map(el=>{const r=el.getBoundingClientRect();return {x:r.x,right:r.right,y:r.y,width:r.width};}));
   for(let i=0;i<boxes.length;i++){expect(boxes[i].width).toBe(18);if(i){expect(boxes[i].y).toBe(boxes[0].y);expect(boxes[i].x).toBeGreaterThan(boxes[i-1].right);}}
@@ -57,6 +57,6 @@ test('personal platforms form extra compact columns without dropping links',asyn
 test('manual includes every export method and both provider setup paths',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:'Review & create →',exact:true}).click();
  const guide=page.locator('.instructions');
- await expect(guide).toContainText('Copy for Gmail without uploads');await expect(guide).toContainText('Copy HTML (advanced)');await expect(guide).toContainText('Download HTML');
- await expect(guide).toContainText('Gmail on a computer');await expect(guide).toContainText('Classic Outlook for Windows');await expect(guide).toContainText('still working on automatic installation');
+ await expect(guide.getByLabel('Installation method').locator('option')).toHaveCount(4);
+ await expect(guide.locator('.guide-steps')).toContainText('Gmail · web');await guide.getByLabel('Email provider').selectOption('classic');await expect(guide.locator('.guide-steps')).toContainText('File → Options → Mail');await expect(guide).toContainText('still working on automatic installation');
 });

@@ -10,7 +10,7 @@ Personal and logo-only business templates; browser image optimization; optional 
 - Investigate Outlook automation separately; no Outlook login/automatic installer exists today.
 - Harden public uploads using authenticated signing, rate limiting and owner-managed retention before scaling.
 - Expand real Gmail/Outlook/Apple Mail and mobile compatibility testing.
-- Consider persistent drafts only with explicit privacy/storage choices.
+- Browser draft autosave is implemented with a shared-device warning and clear control. Cross-device sync is not implemented.
 - Improve icon artwork/accessibility based on supplied assets and user feedback.
 - Initialize/publish Wiki when repository access is available; keep docs as permanent source.
 
