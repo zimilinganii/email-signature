@@ -10,3 +10,50 @@ select:hover{border-color:#4b795a;background-color:#f0f5ed}select:focus-visible{
 @media(max-width:650px){.install-guide{padding:18px}.guide-selectors,.guide-content{grid-template-columns:1fr}.guide-selectors{gap:16px}.guide-content article{padding:18px}.guide-heading{align-items:flex-start;flex-direction:column}.guide-badge{white-space:normal}}
 @media(forced-colors:active){select{appearance:auto;background-image:none}}
 .install-guide article p{min-height:0}.guide-content article{border:0;border-radius:0}.guide-preparation{border-right:1px solid #e0e6da!important}@media(max-width:650px){.guide-preparation{border-right:0!important;border-bottom:1px solid #e0e6da!important}}
+.export-panel > .actions > button {
+  flex: 1 1 130px;
+  min-height: 44px;
+  background: #265f47;
+  color: #fff;
+  border: 1px solid #265f47;
+  cursor: pointer;
+  transition: background-color .15s, box-shadow .15s;
+}
+.export-panel > .actions > button:hover:not(:disabled) {
+  background: #194832;
+  box-shadow: 0 2px 5px #213f3526;
+}
+.export-panel > .actions > button:disabled {
+  cursor: not-allowed;
+}
+.gmail-size-note {
+  margin: 16px 0;
+  padding: 14px 16px;
+  border: 1px solid #dce5d6;
+  border-radius: 12px;
+  background: #f4f7f1;
+  color: #254739;
+}
+.gmail-size-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+}
+.gmail-size-count {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: #e4ecdf;
+  color: #355843;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.gmail-size-note p {
+  margin: 8px 0 0;
+  color: #596b5c;
+  font-size: 12px;
+  line-height: 1.6;
+}
