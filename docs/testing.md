@@ -11,8 +11,10 @@ Browser tests use Edge locally by default. For CI: npx playwright install --with
 
 ## Manual release checklist
 
+Release verification on 2026-09-27: 43 unit tests and 19 browser tests passed, the production build succeeded, PR checks passed, and GitHub Pages deployed successfully. Coverage includes export-button actions/equal emphasis, saved font sizing, font allowlisting and safe contact-color overrides. These counts describe that release, not a new test run on every documentation update.
+
 1. Personal: photo crop, optional fields, social separators, portrait layout and stacked layout.
-2. Business: logo-only upload, blank company enlargement, name/role alignment, top-right social groups, no-wrap contact strip and independent strip color.
+2. Business: logo-only upload, blank company enlargement, name/role alignment, full-height divider, top-right social groups, no-wrap contact strip and independent strip/text colors. Check a long address wraps beside its pin and opens the intended Maps destination. Check font selection and size in both modes, including after refresh.
 3. Add more than three platforms; every populated enabled link appears. Add enough to wrap; verify no overlap and no blank links.
 4. Review, upload, copy formatted, fallback copy, raw HTML and HTML download.
 5. Paste into Gmail settings, Outlook web/new and classic Outlook; test actual received mail.

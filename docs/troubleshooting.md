@@ -5,6 +5,8 @@
 | Old layout still visible | Confirm latest production release deployed; refresh with Ctrl+Shift+R. Develop is not production. Regenerate installed signatures. |
 | Only text after paste | Use Copy signature, not Copy HTML; normal paste; turn off Gmail plain-text mode or enable Outlook HTML format. Replace the saved old signature and start a new message. |
 | Literal HTML tags | Raw source was pasted. Open saved/downloaded HTML in a browser and copy the rendered result. |
+| Clicking a platform icon shows Go to link / Change / Remove | Gmail is editing the signature or message. Use Go to link in the popup, or test the icon in a received email. This is Gmail's editor interface, not a generator fault. |
+| Copy HTML and Download look like other export buttons | All three export buttons intentionally have equal emphasis. They are actions, not tabs; see the manual for the different installation steps. |
 | Image missing | Finish Review & create upload; verify public HTTPS image URL; recipient may block remote images. Do not delete hosted assets used by existing signatures. |
 | Signature too long | Remove unnecessary platforms/text or shorten links. The 8,000-character app guard remains even without a platform-count limit. Downloading does not bypass provider limits. |
 | Upload rejected | Confirm unsigned preset, cloud name, JPG/PNG allowed formats and quota. Never put provider secrets in frontend variables. |

@@ -5,7 +5,7 @@
 1. Choose Personal or Business. Personal supports a portrait; Business supports a logo only.
 2. Enter your contact information. Leave the optional company name blank if it is already in the logo; the logo enlarges without cropping.
 3. Upload and adjust your image. Choose platforms from the dropdown, enter complete links, and toggle visibility or remove unwanted rows.
-4. Choose colors in Style. Business has an independent contact-strip background.
+4. In Style, choose a font and adjust Signature text size (11–17px base; all text scales proportionally). Choose accent, background, text and icon colors. Business additionally has Contact strip background and Contact text colors; Use automatic contact-text contrast restores automatic contrast. An optional business address appears beneath the role with a pin and links to Google Maps directions.
 5. Review the live preview, then select Review & create. Wait for hosted-image preparation to finish.
 6. Choose a copy method below. Editing a field returns the design to preview until you review again.
 
@@ -20,6 +20,8 @@ After Review & create, scroll to Install your signature. Select Email provider (
 Your form, styles, platforms and processed images autosave in this browser and restore after refresh. Personal and business drafts are saved independently. Google sessions are not saved. Use Reset & clear saved data to clear both drafts on shared devices; confirm the prompt. Hosted images and existing email signatures are not deleted. If storage is blocked/full, a warning appears: keep the page open and download the signature. Clearing browser data removes drafts. The original image and crop handles are not retained; re-upload to recrop after refresh.
 
 ## Copy methods (for both Gmail and Outlook)
+
+The Your signature is ready panel gives Copy signature, Copy HTML and Download equal button styling; each performs a different action, not a selected tab. Formatted copy is unavailable when the Gmail export guard reports an unresolved issue. The green HTML prepared for Gmail notice includes the generated character count in a badge and reminds you that Gmail may adjust formatting. This is a preparation check, not a guarantee of identical rendering or proof that installation has completed.
 
 | Action | What it produces | How to install |
 | --- | --- | --- |
@@ -40,6 +42,10 @@ Do not paste source code directly into Gmail or Outlook. Do not use Ctrl+Shift+V
 6. Save Changes at the bottom. Start a new email; old drafts can retain old signatures.
 
 [Google setup guide](https://support.google.com/mail/answer/8395) and [Google troubleshooting](https://support.google.com/mail/answer/11468381).
+
+### Why clicking an icon shows “Go to link”
+
+In Gmail's signature editor or compose window, clicking a linked icon can show a popup with Go to link, Change and Remove. This is Gmail's editing interface, not a broken platform link. Select Go to link to visit the destination while editing. Send yourself a test message and open the received message to check normal link navigation. The generator cannot override Gmail's editor interface; no signature change is needed for this popup. If a received-message link opens the wrong destination, correct that platform URL in the generator and replace the installed signature.
 
 ## Outlook web and new Outlook
 
